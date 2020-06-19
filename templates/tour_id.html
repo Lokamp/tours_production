@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block container %}
+
+<h1 class="display-3 mt-4" data-test="title">
+    {% if tours.stars == '1' %}
+    {{ tours.title }}★
+    {% elif tours.stars == '2' %}
+    {{ tours.title }}★★
+    {% elif tours.stars == '3' %}
+    {{ tours.title }}★★★
+    {% elif tours.stars == '4' %}
+    {{ tours.title }}★★★★
+    {% elif tours.stars == '5' %}
+    {{ tours.title }}★★★★★
+    {% else %}
+    {{ tours.title }}
+    {% endif %}
+</h1>
+
+<!-- HERO -->
+
+<p class="lead" data-test="lead">
+    <span data-test="country">{{ tours.country }}</span>
+
+    <span data-text="departure">
+        {% for link, city_name in departures.items %}
+            {% if link == tours.departure %}
+            {{ city_name }}
+            {% endif%}
+        {% endfor%}
+    </span>
+    <span data-text="nights">{{ tours.nights }}</span> ночей</p>
+
+<img data-test="picture" src="{{ tours.picture }}" class="w-75" alt="">
+
+<p class="my-4 w-75" data-test="description">{{ tours.description }}</p>
+
+<a href="" class="btn btn-success btn-lg" data-test="buybutton">Купить тур за <span data-test="price">{{ tours.price }}</span></a>
+{% endblock %}
