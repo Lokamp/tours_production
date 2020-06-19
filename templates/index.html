@@ -14,15 +14,17 @@
 <div class="row mt-5" data-test="cards">
     {% for tour_id, tour_properties in random_tours.items %}
     <div class="col-4" data-test="card" >
+        <div class="embed-responsive embed-responsive-16by9">
         <div class="card mb-3" >
-         <div class="embed-responsive embed-responsive-16by9">
+
          <img src="{{ tour_properties.picture }}" class="card-img-top img-fluid" data-test="picture" >
-         </div>
+
          <div class="card-body">
           <h5 class="card-title">{{ tour_properties.title }}</h5>
          <p class="card-text">{{ tour_properties.description }}</p>
             <a href="/tour/{{ tour_id }}/" class="btn btn-sm btn-primary" data-test="tourlink">Подробнее</a>
          </div>
+    </div>
     </div>
     </div>
     {% endfor %}
