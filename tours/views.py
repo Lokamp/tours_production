@@ -60,8 +60,8 @@ class TourView(View):
 
 
 def custom_handler404(request, exception):
-    return HttpResponseNotFound('Ошибка 404! Попробуйте открыть другую страницу')
+    return HttpResponseNotFound('Ошибка 404! Попробуйте открыть другую страницу. Главная href="/"')
 
 
 def custom_handler500(request):
-    return HttpResponseServerError('Ошибка 500! Попробуйте открыть другую страницу')
+    return HttpResponseServerError('Ошибка 500! Попробуйте открыть другую страницу. Главная href="/"')
