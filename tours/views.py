@@ -8,11 +8,12 @@ from tours.data import data
 
 tours = data.tours
 departures = data.departures
+TOURS_ON_MAIN_PAGE = 6
 
 
 class MainView(View):
     def get(self, request):
-        random_tours_main_page = random.sample(list(tours), 6)
+        random_tours_main_page = random.sample(list(tours), TOURS_ON_MAIN_PAGE)
         random_tours = {}
         for id_tour, tour_properties in tours.items():
             if id_tour in random_tours_main_page:
@@ -26,11 +27,11 @@ class MainView(View):
 class DepartureView(View):
     def get(self, request, departure_str_url):
         departures_filter = {}
-        for tour_dictionary, tour_properties in tours.items():
+        for tour_id, tour_properties in tours.items():
             if tour_properties['departure'] == departure_str_url:
-                departures_filter[tour_dictionary] = tour_properties
-        list_price = [hotel_properties['price'] for dictionary_tours, hotel_properties in departures_filter.items()]
-        list_nights = [hotel_properties['nights'] for dictionary_tours, hotel_properties in departures_filter.items()]
+                departures_filter[tour_id] = tour_properties
+        list_price = [hotel_properties['price'] for tour_id, hotel_properties in departures_filter.items()]
+        list_nights = [hotel_properties['nights'] for tour_id, hotel_properties in departures_filter.items()]
         min_price = min(list_price)
         max_price = max(list_price)
         min_nights = min(list_nights)
@@ -51,7 +52,7 @@ class DepartureView(View):
 class TourView(View):
     def get(self, request, tour_id_url):
         if not tour_id_url:
-            return HttpResponseNotFound(f'Нет автора с id {tour_id_url}. Перейти на <a href="/">Главную страницу</a>')
+            return HttpResponseNotFound(f'Нет тура с id {tour_id_url}. Перейти на <a href="/">Главную страницу</a>')
         context = {
             'tours': tours[tour_id_url],
             'departures': departures,
